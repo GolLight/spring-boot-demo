@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+import org.springframework.validation.Errors;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,8 +44,8 @@ public class DesiginTacoController {
         Type[] types = Ingredient.Type.values();
         for (Type type : types) {
             model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
-            log.error("addIngredientsToModel type" + type.toString().toLowerCase() 
-            + " " + filterByType(ingredients, type));
+            log.error("addIngredientsToModel type" + type.toString().toLowerCase()
+                    + " " + filterByType(ingredients, type));
         }
     }
 
@@ -75,7 +78,11 @@ public class DesiginTacoController {
     }
 
     @PostMapping
-    public String processTaco(Taco taco, @ModelAttribute TacoOrder tacoOrder) {
+    public String processTaco(@Valid Taco taco, Errors errors, @ModelAttribute TacoOrder tacoOrder) {
+        
+        if (errors.hasErrors()) {
+            return "design";
+          }
         tacoOrder.addTaco(taco);
         log.info("processTaco {}", taco);
         return "redirect:/orders/current";

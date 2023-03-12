@@ -1,5 +1,7 @@
 package com.gollight.tacocloud.web;
 
+import javax.validation.Valid;
+import org.springframework.validation.Errors;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,15 +19,18 @@ import lombok.extern.slf4j.Slf4j;
 @SessionAttributes("tacoOrder")
 public class OrderController {
 
-    private final static String TAG = "OrderController";
-
     @GetMapping("/current")
     public String orderForm() {
         return "orderForm";
     }
 
     @PostMapping
-    public String processOrder(TacoOrder order, SessionStatus sessionStatus) {
+    public String processOrder(@Valid TacoOrder order, Errors errors, SessionStatus sessionStatus) {
+        
+        if (errors.hasErrors()) {
+            return "orderForm";
+          }
+
         log.info("processOrder submited {}" + order);
         sessionStatus.setComplete();
         return "redirect:/";
