@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -23,7 +24,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/design")
 @SessionAttributes("tacoOrder")
 public class DesiginTacoController {
-    private final static String TAG = "DesiginTacoController";
 
     @ModelAttribute
     public void addIngredientsToModel(Model model) {
@@ -41,7 +41,7 @@ public class DesiginTacoController {
         Type[] types = Ingredient.Type.values();
         for (Type type : types) {
             model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
-            log.debug(TAG, "addIngredientsToModel type" + type.toString().toLowerCase() 
+            log.error("addIngredientsToModel type" + type.toString().toLowerCase() 
             + " " + filterByType(ingredients, type));
         }
     }
@@ -72,6 +72,13 @@ public class DesiginTacoController {
     @GetMapping
     public String showDesignForm() {
         return "design";
+    }
+
+    @PostMapping
+    public String processTaco(Taco taco, @ModelAttribute TacoOrder tacoOrder) {
+        tacoOrder.addTaco(taco);
+        log.info("processTaco {}", taco);
+        return "redirect:/orders/current";
     }
 
 }
