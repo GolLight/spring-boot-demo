@@ -19,7 +19,7 @@ import com.gollight.tacocloud.Ingredient;
 import com.gollight.tacocloud.Taco;
 import com.gollight.tacocloud.TacoOrder;
 import com.gollight.tacocloud.Ingredient.Type;
-import com.gollight.tacocloud.data.IngredientRepository;
+import com.gollight.tacocloud.data.api.IngredientRepository;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,4 +1,4 @@
-package com.gollight.tacocloud.data;
+package com.gollight.tacocloud.data.api;
 
 import java.util.Optional;
 

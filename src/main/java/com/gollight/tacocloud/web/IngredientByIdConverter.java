@@ -8,8 +8,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import com.gollight.tacocloud.Ingredient;
-// import com.gollight.tacocloud.Ingredient.Type;
-import com.gollight.tacocloud.data.IngredientRepository;
+import com.gollight.tacocloud.data.api.IngredientRepository;
 
 @Component
 public class IngredientByIdConverter implements Converter<String, Ingredient> {

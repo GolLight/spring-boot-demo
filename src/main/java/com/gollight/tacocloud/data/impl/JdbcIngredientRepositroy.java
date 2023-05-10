@@ -1,4 +1,4 @@
-package com.gollight.tacocloud.data;
+package com.gollight.tacocloud.data.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +12,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import com.gollight.tacocloud.Ingredient;
+import com.gollight.tacocloud.data.api.IngredientRepository;
 
 @Repository
 public class JdbcIngredientRepositroy implements IngredientRepository {
