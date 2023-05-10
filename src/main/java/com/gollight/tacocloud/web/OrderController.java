@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.gollight.tacocloud.TacoOrder;
+import com.gollight.tacocloud.data.api.OrderRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,6 +19,11 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @SessionAttributes("tacoOrder")
 public class OrderController {
+    private OrderRepository orderRepository;
+
+    public OrderController(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     @GetMapping("/current")
     public String orderForm() {
@@ -30,7 +36,7 @@ public class OrderController {
         if (errors.hasErrors()) {
             return "orderForm";
           }
-
+        orderRepository.save(order);
         log.info("processOrder submited {}" + order);
         sessionStatus.setComplete();
         return "redirect:/";
